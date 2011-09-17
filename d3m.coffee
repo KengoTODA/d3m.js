@@ -3,15 +3,15 @@ class D3M
     (canvas) ->
       @canvas = canvas
       @context = canvas.getContext('2d')
-  @d3mdist:
+  d3dist:
     (x,y=0,z=0) -> Math.sqrt(x*x+y*y+z*z)
-  @d3rotate:
+  d3rotate:
     (x0,y0,va) -> 
       x: x0 * Math.cos(va) - y0 * Math.sin(va)
       y: x0 * Math.sin(va) + y0 * Math.cos(va)
-  @d3vrotate:
+  d3vrotate:
     (x0,y0,z0,vx,vy,vz,va) ->
-      r = d3m.d3dist(vx,vy,vz)
+      r = @d3dist(vx,vy,vz)
       ax = vx/r
       ay = vy/r
       az = vz/r
@@ -149,7 +149,17 @@ class D3M
       return
   d3arrow:
     (x1,y1,z1, x2,y2,z2) ->
-      throw 'unsupported operation'
+      @d3line x1,y1,z1, x2,y2,z2
+      if @df and @ef
+        a = Math.atan2(@dy-@ey, @dx-@ex)
+        @d3vpos (x1*6+x2)/7, (y1*6+y2)/7, (z1*6+z2)/7
+        r = @d3dist(x1-x2, y1-y2, z1-z2)/@dz/25
+        bx = Math.cos(a) * r
+        bY = Math.sin(a) * r
+        @context.moveTo @dx - bY, @dy + bx
+        @context.lineTo @ex, @ey
+        @context.lineTo @dx + bY, @dy - bx
+      return
   d3box:
     (v11,v12,v13, v14,v15,v16) ->
       @d3line v11, v12, v13,  v11, v12, v16
@@ -167,4 +177,13 @@ class D3M
       @d3line v11, v15, v16,  v14, v15, v16
       @d3line v11, v15, v13,  v14, v15, v13
       return
-    
+  d3circle:
+    -> throw 'unsupported operation'
+  d3mes:
+    (s, x,y,z) ->
+      @d3vpos x,y,z
+      if @df
+        metrics = @context.measureText(s)
+        # TODO 文字列の高さをあらかじめ測定し、指定された座標を中心とした文字列の描画を可能にする
+        @context.strokeText(s, @dx-metrics.width/2, @dy)
+      return    
