@@ -4,7 +4,7 @@ D3M = (function() {
     this.canvas = canvas;
     this.context = canvas.getContext('2d');
   }
-  D3M.d3mdist = function(x, y, z) {
+  D3M.prototype.d3dist = function(x, y, z) {
     if (y == null) {
       y = 0;
     }
@@ -13,15 +13,15 @@ D3M = (function() {
     }
     return Math.sqrt(x * x + y * y + z * z);
   };
-  D3M.d3rotate = function(x0, y0, va) {
+  D3M.prototype.d3rotate = function(x0, y0, va) {
     return {
       x: x0 * Math.cos(va) - y0 * Math.sin(va),
       y: x0 * Math.sin(va) + y0 * Math.cos(va)
     };
   };
-  D3M.d3vrotate = function(x0, y0, z0, vx, vy, vz, va) {
+  D3M.prototype.d3vrotate = function(x0, y0, z0, vx, vy, vz, va) {
     var ax, ay, az, cos, l_cos, r, sin;
-    r = d3m.d3dist(vx, vy, vz);
+    r = this.d3dist(vx, vy, vz);
     ax = vx / r;
     ay = vy / r;
     az = vz / r;
@@ -248,7 +248,18 @@ D3M = (function() {
     }
   };
   D3M.prototype.d3arrow = function(x1, y1, z1, x2, y2, z2) {
-    throw 'unsupported operation';
+    var a, bY, bx, r;
+    this.d3line(x1, y1, z1, x2, y2, z2);
+    if (this.df && this.ef) {
+      a = Math.atan2(this.dy - this.ey, this.dx - this.ex);
+      this.d3vpos((x1 * 6 + x2) / 7, (y1 * 6 + y2) / 7, (z1 * 6 + z2) / 7);
+      r = this.d3dist(x1 - x2, y1 - y2, z1 - z2) / this.dz / 25;
+      bx = Math.cos(a) * r;
+      bY = Math.sin(a) * r;
+      this.context.moveTo(this.dx - bY, this.dy + bx);
+      this.context.lineTo(this.ex, this.ey);
+      this.context.lineTo(this.dx + bY, this.dy - bx);
+    }
   };
   D3M.prototype.d3box = function(v11, v12, v13, v14, v15, v16) {
     this.d3line(v11, v12, v13, v11, v12, v16);
@@ -263,6 +274,17 @@ D3M = (function() {
     this.d3line(v11, v12, v16, v14, v12, v16);
     this.d3line(v11, v15, v16, v14, v15, v16);
     this.d3line(v11, v15, v13, v14, v15, v13);
+  };
+  D3M.prototype.d3circle = function() {
+    throw 'unsupported operation';
+  };
+  D3M.prototype.d3mes = function(s, x, y, z) {
+    var metrics;
+    this.d3vpos(x, y, z);
+    if (this.df) {
+      metrics = this.context.measureText(s);
+      this.context.strokeText(s, this.dx - metrics.width / 2, this.dy);
+    }
   };
   return D3M;
 })();
