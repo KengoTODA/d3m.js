@@ -1,0 +1,19 @@
+<!DOCTYPE HTML>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>cube - d3m.js sample</title>
+</head>
+<body>
+	<canvas id="canvas" width="320" height="240"></canvas>
+
+	<script src="../d3m.js"></script>
+	<script type="text/javascript">
+	var canvas = document.getElementById('canvas');
+	var d3m = new D3M(canvas);
+	d3m.d3setcam(200, -400, 200);
+	d3m.d3box(-100,-100,-100, 100,100,100);
+	d3m.context.stroke();
+	</script>
+</body>
+</html>
