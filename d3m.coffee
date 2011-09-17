@@ -178,7 +178,13 @@ class D3M
       @d3line v11, v15, v13,  v14, v15, v13
       return
   d3circle:
-    -> throw 'unsupported operation'
+    (x,y,z, r, flg) ->
+      @d3vpos x,y,z
+      if @df
+        r = r/@dz
+        @context.moveTo @dx+r,@dy
+        @context.arc @dx,@dy,r,0,Math.PI*2,false
+      return
   d3mes:
     (s, x,y,z) ->
       @d3vpos x,y,z

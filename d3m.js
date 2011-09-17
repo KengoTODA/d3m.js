@@ -275,8 +275,13 @@ D3M = (function() {
     this.d3line(v11, v15, v16, v14, v15, v16);
     this.d3line(v11, v15, v13, v14, v15, v13);
   };
-  D3M.prototype.d3circle = function() {
-    throw 'unsupported operation';
+  D3M.prototype.d3circle = function(x, y, z, r, flg) {
+    this.d3vpos(x, y, z);
+    if (this.df) {
+      r = r / this.dz;
+      this.context.moveTo(this.dx + r, this.dy);
+      this.context.arc(this.dx, this.dy, r, 0, Math.PI * 2, false);
+    }
   };
   D3M.prototype.d3mes = function(s, x, y, z) {
     var metrics;

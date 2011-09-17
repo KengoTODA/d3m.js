@@ -1,0 +1,53 @@
+<!DOCTYPE HTML>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>cube with arrow - d3m.js sample</title>
+</head>
+<body>
+	<canvas id="canvas" width="320" height="240"></canvas>
+
+	<script src="../d3m.js"></script>
+	<script type="text/javascript">
+	var canvas = document.getElementById('canvas');
+	var d3m = new D3M(canvas), i, b, balls = [], count = 0;
+	d3m.context.fillStyle = '#fff';
+	for (i = 0; i < 10; ++i) {
+		balls.push({
+			x:Math.random()*200-100,
+			y:Math.random()*200-100,
+			z:Math.random()*200-100,
+			r:Math.random()*20
+		});
+	}
+        setInterval(function (){
+		d3m.context.fillRect(0,0,320,240);
+		d3m.context.beginPath();
+
+		d3m.d3setcam(
+			300*Math.cos(count*Math.PI/100),
+			300*Math.sin(count*Math.PI/100),
+			200+100*Math.sin(count*Math.PI/100)
+		);
+
+		d3m.context.strokeStyle='#999';
+		d3m.d3arrow(200,0,0, 0,0,0);
+		d3m.d3mes("X", 230,0,0);
+		d3m.d3arrow(0,200,0, 0,0,0);
+		d3m.d3mes("Y", 0,230,0);
+		d3m.d3arrow(0,0,200, 0,0,0);
+		d3m.d3mes("Z", 0,0,230);
+		d3m.context.stroke();
+
+		d3m.context.strokeStyle='#000';
+		d3m.context.beginPath();
+		for (i = 0; i < balls.length; ++i) {
+			b = balls[i];
+			d3m.d3circle(b.x, b.y, b.z, b.r);
+		}
+		d3m.context.stroke();
+		++count;
+	}, 1000/20);
+	</script>
+</body>
+</html>
