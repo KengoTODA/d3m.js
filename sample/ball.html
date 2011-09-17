@@ -10,7 +10,7 @@
 	<script src="../d3m.js"></script>
 	<script type="text/javascript">
 	var canvas = document.getElementById('canvas');
-	var d3m = new D3M(canvas), i, b, balls = [], count = 0;
+	var d3m = new D3M(canvas.getContext('2d'), 320, 320), i, b, balls = [], count = 0;
 	d3m.context.fillStyle = '#fff';
 	for (i = 0; i < 10; ++i) {
 		balls.push({

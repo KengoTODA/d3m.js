@@ -10,7 +10,7 @@
 	<script src="../d3m.js"></script>
 	<script type="text/javascript">
 	var canvas = document.getElementById('canvas');
-	var d3m = new D3M(canvas), count = 0;
+	var d3m = new D3M(canvas.getContext('2d'), canvas.width, canvas.height), count = 0;
 	d3m.context.fillStyle = '#fff';
         setInterval(function (){
 		d3m.context.fillRect(0,0,320,240);

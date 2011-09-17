@@ -1,8 +1,9 @@
 var D3M;
 D3M = (function() {
-  function D3M(canvas) {
-    this.canvas = canvas;
-    this.context = canvas.getContext('2d');
+  function D3M(context, width, height) {
+    this.context = context;
+    this.width = width != null ? width : 320;
+    this.height = height != null ? height : 320;
   }
   D3M.prototype.d3dist = function(x, y, z) {
     if (y == null) {
@@ -107,8 +108,8 @@ D3M = (function() {
     if (ppv == null) {
       ppv = 1;
     }
-    this.wincx = this.canvas.width / 2;
-    this.wincy = this.canvas.height / 2;
+    this.wincx = this.width / 2;
+    this.wincy = this.height / 2;
     ax = cpx - ppx;
     ay = cpy - ppy;
     az = cpz - ppz;
@@ -122,7 +123,7 @@ D3M = (function() {
       cos1 = r0 / r1;
       sin1 = az / r1;
     }
-    az = ppv / (0.01 + this.canvas.height);
+    az = ppv / (0.01 + this.height);
     this.GSm00 = sin0;
     this.GSm10 = -cos0;
     this.GSm01 = cos0 * cos1 * az;

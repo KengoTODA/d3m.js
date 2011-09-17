@@ -1,8 +1,6 @@
 class D3M
   constructor:
-    (canvas) ->
-      @canvas = canvas
-      @context = canvas.getContext('2d')
+    (@context, @width=320, @height=320) ->
   d3dist:
     (x,y=0,z=0) -> Math.sqrt(x*x+y*y+z*z)
   d3rotate:
@@ -43,8 +41,8 @@ class D3M
       return
   d3setcam:
     (cpx=0, cpy=0, cpz=0, ppx=0, ppy=0, ppz=0, ppv=1) ->
-      @wincx = @canvas.width / 2
-      @wincy = @canvas.height / 2
+      @wincx = @width / 2
+      @wincy = @height / 2
 
       # カメラ方向三角比計算
       ax = cpx - ppx
@@ -61,7 +59,7 @@ class D3M
         sin1 = az / r1
 
       # グローバル座標 → スクリーン座標 変換マトリクス
-      az = ppv / (0.01 + @canvas.height) # 視野角
+      az = ppv / (0.01 + @height) # 視野角
 
       @GSm00 = sin0
       @GSm10 = -cos0

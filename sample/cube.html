@@ -10,7 +10,7 @@
 	<script src="../d3m.js"></script>
 	<script type="text/javascript">
 	var canvas = document.getElementById('canvas');
-	var d3m = new D3M(canvas);
+	var d3m = new D3M(canvas.getContext('2d'), canvas.width, canvas.height);
 	d3m.d3setcam(200, -400, 200);
 	d3m.d3box(-100,-100,-100, 100,100,100);
 	d3m.context.stroke();
