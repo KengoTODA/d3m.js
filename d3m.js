@@ -1,3 +1,9 @@
+/**
+<a href="http://sprocket.babyblue.jp/html/hsp_d3m.htm">d3m.hsp</a> をcoffeescript/javascriptに移植したものです。
+@see <a href="https://github.com/eller86/d3m.js">repository on GitHub</a>
+@author <a href="http://skypencil.jp/">eller86</a>
+@class D3M
+*/
 var D3M;
 D3M = (function() {
   function D3M(context, width, height) {
@@ -5,6 +11,14 @@ D3M = (function() {
     this.width = width != null ? width : 320;
     this.height = height != null ? height : 320;
   }
+  /**
+  入力された x, y, z の距離 (ベクトル) の絶対値 ( sqrt(x*x + y*y + z*z) ) を返す関数です。
+  
+  z 座標を省略すれば平面座標での距離を求めることができます。
+  @param {Number} x
+  @param {Number} [y]
+  @param {Number} [z]
+  */
   D3M.prototype.d3dist = function(x, y, z) {
     if (y == null) {
       y = 0;
@@ -14,6 +28,14 @@ D3M = (function() {
     }
     return Math.sqrt(x * x + y * y + z * z);
   };
+  /**
+  平面上のベクトル (あるいは位置) x0, y0 を、原点を中心に va [ラジアン] 回転させたベクトルを求めます。計算結果は、x, y をプロパティに持つオブジェクトとして返されます。
+  
+  角度は、ラジアン単位 (2π ≒ 6.2831853 を一回転とする角度単位) で入力します。
+  @param {Number} x0 回転させるベクトルのx方向の大きさ
+  @param {Number} y0 回転させるベクトルのy方向の大きさ
+  @param {Number} va 回転量（ラジアン）
+  */
   D3M.prototype.d3rotate = function(x0, y0, va) {
     return {
       x: x0 * Math.cos(va) - y0 * Math.sin(va),
