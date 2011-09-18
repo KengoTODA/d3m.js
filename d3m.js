@@ -198,7 +198,7 @@ D3M = (function() {
     }
   };
   D3M.prototype.d3line = function(ppx, ppy, ppz, ssx, ssy, ssz) {
-    var ax, ay, az, bY, bx, bz, cnt, cx, cy, cz, trans, _ref, _ref2, _ref3, _ref4, _ref5, _ref6;
+    var ax, ay, az, bY, bx, bz, cnt, cx, cy, cz, _ref, _ref2, _ref3, _ref4, _ref5, _ref6;
     if (ppx == null) {
       ppx = 0;
     }
@@ -238,8 +238,8 @@ D3M = (function() {
         cx = (ax + bx) / 2;
         cy = (ay + bY) / 2;
         cz = (az + bz) / 2;
-        trans = this.d3trans(cx, cy, cz);
-        if (trans.df) {
+        this.d3trans(cx, cy, cz);
+        if (this.df) {
           _ref5 = [cx, cy, cz], ax = _ref5[0], ay = _ref5[1], az = _ref5[2];
           this.context.lineTo(this.ex, this.ey);
         } else {

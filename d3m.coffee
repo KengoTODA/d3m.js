@@ -138,8 +138,8 @@ class D3M
           cx = (ax + bx) / 2
           cy = (ay + bY) / 2
           cz = (az + bz) / 2
-          trans = @d3trans cx,cy,cz
-          if trans.df
+          @d3trans cx,cy,cz
+          if @df
             [ax,ay,az] = [cx,cy,cz]
             @context.lineTo @ex,@ey
           else
