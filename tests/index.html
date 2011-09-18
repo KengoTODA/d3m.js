@@ -40,14 +40,14 @@ module("graphic", {
 		d3m.context.strokeStyle = '#000';
 	}
 });
-test("d3line draw well", function() {
+test("d3line draws well", function() {
 	ok(!checkAnythingHasWritten(), "canvas is cleared");
 	d3m.context.beginPath();
 	d3m.d3line(0,10,0, 0,-10,0);
 	d3m.context.stroke();
 	ok( checkAnythingHasWritten(), "d3line draws well");
 });
-test("d3lineto draw well", function() {
+test("d3lineto draws well", function() {
 	ok(!checkAnythingHasWritten(), "canvas is cleared");
 	d3m.context.beginPath();
 	d3m.d3pos(0,10,0);
@@ -55,14 +55,14 @@ test("d3lineto draw well", function() {
 	d3m.context.stroke();
 	ok( checkAnythingHasWritten(), "d3lineto draws well");
 });
-test("d3line draw well although startpoint is far", function() {
+test("d3line draws well although startpoint is far", function() {
 	ok(!checkAnythingHasWritten(), "canvas is cleared");
 	d3m.context.beginPath();
 	d3m.d3line(0,1000,0, 0,-10,0);
 	d3m.context.stroke();
 	ok( checkAnythingHasWritten(), "d3line draws well");
 });
-test("d3lineto draw well although startpoint is far", function() {
+test("d3lineto draws well although startpoint is far", function() {
 	ok(!checkAnythingHasWritten(), "canvas is cleared");
 	d3m.context.beginPath();
 	d3m.d3pos(0,1000,0);
@@ -70,14 +70,14 @@ test("d3lineto draw well although startpoint is far", function() {
 	d3m.context.stroke();
 	ok( checkAnythingHasWritten(), "d3lineto draws well");
 });
-test("d3line draw well although endpoint is far", function() {
+test("d3line draws well although endpoint is far", function() {
 	ok(!checkAnythingHasWritten(), "canvas is cleared");
 	d3m.context.beginPath();
 	d3m.d3line(0,10,0, 0,-1000,0);
 	d3m.context.stroke();
 	ok( checkAnythingHasWritten(), "d3line draws well");
 });
-test("d3lineto draw well although endpoint is far", function() {
+test("d3lineto draws well although endpoint is far", function() {
 	ok(!checkAnythingHasWritten(), "canvas is cleared");
 	d3m.context.beginPath();
 	d3m.d3pos(0,10,0);
@@ -85,35 +85,35 @@ test("d3lineto draw well although endpoint is far", function() {
 	d3m.context.stroke();
 	ok( checkAnythingHasWritten(), "d3lineto draws well");
 });
-test("d3line draw well although startpoint is behind the camera", function() {
+test("d3line draws well although startpoint is behind the camera", function() {
 	ok(!checkAnythingHasWritten(), "canvas is cleared");
 	d3m.context.beginPath();
 	d3m.d3line(1000,0,0, 0,10,0);
 	d3m.context.stroke();
 	ok( checkAnythingHasWritten(), "d3line draws well");
 });
-test("d3lineto draw well although startpoint is behind the camera", function() {
+test("d3lineto doesn't draw if startpoint is behind the camera", function() {
 	ok(!checkAnythingHasWritten(), "canvas is cleared");
 	d3m.context.beginPath();
 	d3m.d3pos(1000,0,0);
 	d3m.d3lineto(0,10,0);
 	d3m.context.stroke();
-	ok( checkAnythingHasWritten(), "d3lineto draws well");
+	ok(!checkAnythingHasWritten(), "d3lineto draws well");
 });
-test("d3line draw well although endpoint is behind the camera", function() {
+test("d3line draws well although endpoint is behind the camera", function() {
 	ok(!checkAnythingHasWritten(), "canvas is cleared");
 	d3m.context.beginPath();
 	d3m.d3line(0,10,0, 1000,0,0);
 	d3m.context.stroke();
 	ok( checkAnythingHasWritten(), "d3line draws well");
 });
-test("d3lineto draw well although endpoint is behind the camera", function() {
+test("d3lineto doesn't draw if endpoint is behind the camera", function() {
 	ok(!checkAnythingHasWritten(), "canvas is cleared");
 	d3m.context.beginPath();
 	d3m.d3pos(0,10,0);
 	d3m.d3lineto(1000,0,0);
 	d3m.context.stroke();
-	ok( checkAnythingHasWritten(), "d3lineto draws well");
+	ok(!checkAnythingHasWritten(), "d3lineto draws well");
 });
 
 if (location.hash !== '#debug') {
