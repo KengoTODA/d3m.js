@@ -1,0 +1,90 @@
+<!DOCTYPE HTML>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<link rel="stylesheet" href="http://code.jquery.com/qunit/git/qunit.css" type="text/css" media="screen" />
+	<title>d3m.js unit test</title>
+</head>
+<body>
+	<h1 id="qunit-header">d3m.js unit test</h1>
+	<h2 id="qunit-banner"></h2>
+	<div id="qunit-testrunner-toolbar"></div>
+	<h2 id="qunit-userAgent"></h2>
+	<ol id="qunit-tests"></ol>
+<!-- 	<div id="qunit-fixture"> -->
+	<canvas id="canvas" width="320" height="320"></canvas>
+<!-- 	</div> -->
+
+	<script src="http://code.jquery.com/qunit/git/qunit.js"></script>
+	<script src="../d3m.js"></script>
+	<script type="text/javascript">
+var canvas = document.getElementById('canvas');
+var d3m = new D3M(canvas.getContext('2d'), canvas.width, canvas.height);
+
+function clearCanvas() {
+	d3m.context.clearRect(0, 0, canvas.width, canvas.height);
+}
+
+function checkAnythingHasWritten() {
+	var i, image = d3m.context.getImageData(0, 0, canvas.width, canvas.height).data; 
+	for (i = 0; i < image.length; ++i) {
+		if (image[i]) { return true; }
+	}
+	return false;
+}
+
+module("graphic", {
+	setup: function() {
+		clearCanvas();
+		d3m.d3setcam(100,0,0, 0,0,0);
+		d3m.context.strokeStyle = '#000';
+	}
+});
+test("d3line draw well", function() {
+	ok(!checkAnythingHasWritten(), "canvas is cleared");
+	d3m.context.beginPath();
+	d3m.d3line(0,10,0, 0,-10,0);
+	d3m.context.stroke();
+	ok( checkAnythingHasWritten(), "d3line draws well");
+});
+test("d3lineto draw well", function() {
+	ok(!checkAnythingHasWritten(), "canvas is cleared");
+	d3m.context.beginPath();
+	d3m.d3pos(0,10,0);
+	d3m.d3lineto(0,-10,0);
+	d3m.context.stroke();
+	ok( checkAnythingHasWritten(), "d3lineto draws well");
+});
+test("d3line draw well although startpoint is far", function() {
+	ok(!checkAnythingHasWritten(), "canvas is cleared");
+	d3m.context.beginPath();
+	d3m.d3line(0,1000,0, 0,-10,0);
+	d3m.context.stroke();
+	ok( checkAnythingHasWritten(), "d3line draws well");
+});
+test("d3lineto draw well although startpoint is far", function() {
+	ok(!checkAnythingHasWritten(), "canvas is cleared");
+	d3m.context.beginPath();
+	d3m.d3pos(0,1000,0);
+	d3m.d3lineto(0,-10,0);
+	d3m.context.stroke();
+	ok( checkAnythingHasWritten(), "d3lineto draws well");
+});
+test("d3line draw well although endpoint is far", function() {
+	ok(!checkAnythingHasWritten(), "canvas is cleared");
+	d3m.context.beginPath();
+	d3m.d3line(0,10,0, 0,-1000,0);
+	d3m.context.stroke();
+	ok( checkAnythingHasWritten(), "d3line draws well");
+});
+test("d3lineto draw well although endpoint is far", function() {
+	ok(!checkAnythingHasWritten(), "canvas is cleared");
+	d3m.context.beginPath();
+	d3m.d3pos(0,10,0);
+	d3m.d3lineto(0,-1000,0);
+	d3m.context.stroke();
+	ok( checkAnythingHasWritten(), "d3lineto draws well");
+});
+	</script>
+</body>
+</html>
