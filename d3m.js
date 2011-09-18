@@ -241,7 +241,7 @@ D3M = (function() {
         this.d3trans(cx, cy, cz);
         if (this.df) {
           _ref5 = [cx, cy, cz], ax = _ref5[0], ay = _ref5[1], az = _ref5[2];
-          this.context.lineTo(this.ex, this.ey);
+          this.context.lineTo(this.dx, this.dy);
         } else {
           _ref6 = [cx, cy, cz], bx = _ref6[0], bY = _ref6[1], bz = _ref6[2];
         }

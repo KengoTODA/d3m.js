@@ -141,7 +141,7 @@ class D3M
           @d3trans cx,cy,cz
           if @df
             [ax,ay,az] = [cx,cy,cz]
-            @context.lineTo @ex,@ey
+            @context.lineTo @dx,@dy
           else
             [bx,bY,bz] = [cx,cy,cz]
       return
