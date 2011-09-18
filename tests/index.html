@@ -85,6 +85,36 @@ test("d3lineto draw well although endpoint is far", function() {
 	d3m.context.stroke();
 	ok( checkAnythingHasWritten(), "d3lineto draws well");
 });
+test("d3line draw well although startpoint is behind the camera", function() {
+	ok(!checkAnythingHasWritten(), "canvas is cleared");
+	d3m.context.beginPath();
+	d3m.d3line(1000,0,0, 0,10,0);
+	d3m.context.stroke();
+	ok( checkAnythingHasWritten(), "d3line draws well");
+});
+test("d3lineto draw well although startpoint is behind the camera", function() {
+	ok(!checkAnythingHasWritten(), "canvas is cleared");
+	d3m.context.beginPath();
+	d3m.d3pos(1000,0,0);
+	d3m.d3lineto(0,10,0);
+	d3m.context.stroke();
+	ok( checkAnythingHasWritten(), "d3lineto draws well");
+});
+test("d3line draw well although endpoint is behind the camera", function() {
+	ok(!checkAnythingHasWritten(), "canvas is cleared");
+	d3m.context.beginPath();
+	d3m.d3line(0,10,0, 1000,0,0);
+	d3m.context.stroke();
+	ok( checkAnythingHasWritten(), "d3line draws well");
+});
+test("d3lineto draw well although endpoint is behind the camera", function() {
+	ok(!checkAnythingHasWritten(), "canvas is cleared");
+	d3m.context.beginPath();
+	d3m.d3pos(0,10,0);
+	d3m.d3lineto(1000,0,0);
+	d3m.context.stroke();
+	ok( checkAnythingHasWritten(), "d3lineto draws well");
+});
 
 if (location.hash !== '#debug') {
 	var fixture = document.getElementById('canvas');
