@@ -113,7 +113,7 @@ class D3M
   d3lineto:
     (x=0,y=0,z=0) ->
       @d3vpos x, y, z
-      if @df
+      if @df and @ef
         @context.lineTo @dx, @dy
   d3line:
     (ppx=0,ppy=0,ppz=0, ssx=0,ssy=0,ssz=0) ->

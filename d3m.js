@@ -193,7 +193,7 @@ D3M = (function() {
       z = 0;
     }
     this.d3vpos(x, y, z);
-    if (this.df) {
+    if (this.df && this.ef) {
       return this.context.lineTo(this.dx, this.dy);
     }
   };
